@@ -1,12 +1,4 @@
-# Utiliser l'image OpenJDK 17 (compatible avec ton projet)
 FROM openjdk:17-jdk-alpine
-
-# Définir le port exposé (doit correspondre à server.port dans application.properties)
 EXPOSE 8087
-
-# Copier le fichier WAR ou JAR compilé depuis le dossier target
-# Assure-toi que ton projet est compilé avec `mvn clean package`
-ADD target/gestion-station-ski-0.0.1-SNAPSHOT.war gestion-station-ski.war
-
-# Définir le point d'entrée pour lancer l'application
-ENTRYPOINT ["java","-jar","/gestion-station-ski.war"]
+ADD target/2MPAWI-G6-Station-Ski.war 2MPAWI-G6-Station-Ski.war
+ENTRYPOINT ["java","-jar","/2MPAWI-G6-Station-Ski.war"]
