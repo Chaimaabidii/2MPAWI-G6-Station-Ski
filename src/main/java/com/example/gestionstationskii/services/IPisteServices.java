@@ -1,14 +1,15 @@
 package com.example.gestionstationskii.services;
-import com.example.gestionstationskii.entities.*;
+
+import com.example.gestionstationskii.entities.Piste;
 import java.util.List;
 
 public interface IPisteServices {
 
+    Piste addPiste(Piste piste);
+
     List<Piste> retrieveAllPistes();
 
-    Piste  addPiste(Piste  piste);
+    Piste retrievePiste(Long numPiste);
 
-    void removePiste (Long numPiste);
-
-    Piste retrievePiste (Long numPiste);
+    void removePiste(Long numPiste);
 }
