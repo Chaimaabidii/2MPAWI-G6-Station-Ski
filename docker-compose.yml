@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  station-ski-db:
+    image: mysql:8.0
+    container_name: station-ski-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: skidb
+
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  station-ski-app:
+    image: sirine/docker-spring-boot:latest
+    container_name: station-ski-app
+    restart: always
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://station-ski-db:3306/skidb?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 
+    depends_on:
+      - station-ski-db
+
+volumes:
+  db_data:
