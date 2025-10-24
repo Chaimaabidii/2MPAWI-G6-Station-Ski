@@ -5,7 +5,9 @@ import com.example.gestionstationskii.repositories.IPisteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -15,8 +17,9 @@ public class PisteServicesImpl implements IPisteServices {
 
     @Override
     public Piste addPiste(Piste piste) {
-        System.out.println("🚀 Ajout d'une nouvelle piste : " + piste.getNamePiste());
-        return pisteRepository.save(piste);
+        Piste saved = pisteRepository.save(piste);
+        System.out.println("✅ Nouvelle piste ajoutée : " + saved.getNamePiste() + " (" + saved.getColor() + ")");
+        return saved;
     }
 
     @Override
@@ -27,8 +30,10 @@ public class PisteServicesImpl implements IPisteServices {
 
     @Override
     public Piste retrievePiste(Long numPiste) {
-        return pisteRepository.findById(numPiste)
+        Piste piste = pisteRepository.findById(numPiste)
                 .orElseThrow(() -> new RuntimeException("❌ Piste non trouvée avec l'id : " + numPiste));
+        System.out.println("🔎 Piste trouvée : " + piste.getNamePiste());
+        return piste;
     }
 
     @Override
