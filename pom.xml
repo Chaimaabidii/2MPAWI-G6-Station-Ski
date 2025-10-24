@@ -95,4 +95,18 @@
     </plugins>
 </build>
 
+
+
+   <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <name>Nexus Repository Releases</name>
+            <url>http://localhost:9090/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>deploymentRepo</id>
+            <name>Nexus Repository Snapshots</name>
+            <url>http://localhost:9090/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
