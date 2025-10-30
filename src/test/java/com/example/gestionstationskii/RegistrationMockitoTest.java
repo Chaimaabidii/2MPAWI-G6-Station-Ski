@@ -4,76 +4,93 @@ import com.example.gestionstationskii.entities.Registration;
 import com.example.gestionstationskii.entities.Skier;
 import com.example.gestionstationskii.entities.Course;
 
-import org.junit.jupiter.api.BeforeEach;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@Slf4j
+@ExtendWith(MockitoExtension.class)
 public class RegistrationMockitoTest {
 
-    private Registration registration;
+    @Mock
     private Skier mockSkier;
+
+    @Mock
     private Course mockCourse;
 
-    @BeforeEach
-    void setUp() {
-        // Création des objets simulés (mocks)
-        mockSkier = Mockito.mock(Skier.class);
-        mockCourse = Mockito.mock(Course.class);
+    @InjectMocks
+    private Registration registration; // Injecte les mocks dans l’objet à tester
 
-        // Création de l’entité à tester
-        registration = new Registration(1L, 12, mockSkier, mockCourse);
+    // ✅ 1️⃣ Test de création de l’objet et des champs simples
+    @Test
+    @Order(1)
+    void testCreateRegistration() {
+        registration.setNumRegistration(1L);
+        registration.setNumWeek(10);
+
+        log.info("Création d'une registration avec numRegistration={} et numWeek={}",
+                registration.getNumRegistration(), registration.getNumWeek());
+
+        Assertions.assertEquals(1L, registration.getNumRegistration());
+        Assertions.assertEquals(10, registration.getNumWeek());
     }
 
-    // ✅ 1️⃣ Vérifie la création de l’objet avec les mocks
+    // ✅ 2️⃣ Test des relations ManyToOne (Skier et Course)
     @Test
-    void testRegistrationWithMocks() {
-        assertEquals(1L, registration.getNumRegistration());
-        assertEquals(12, registration.getNumWeek());
-        assertEquals(mockSkier, registration.getSkier());
-        assertEquals(mockCourse, registration.getCourse());
+    @Order(2)
+    void testRelations() {
+        registration.setSkier(mockSkier);
+        registration.setCourse(mockCourse);
+
+        log.info("Association de Skier et Course à la registration");
+
+        Assertions.assertEquals(mockSkier, registration.getSkier());
+        Assertions.assertEquals(mockCourse, registration.getCourse());
     }
 
-    // ✅ 2️⃣ Simule le comportement des mocks et vérifie indirectement le résultat
+    // ✅ 3️⃣ Test de modification des champs
     @Test
-    void testMockBehavior() {
-        when(mockSkier.toString()).thenReturn("MockedSkier");
-        when(mockCourse.toString()).thenReturn("MockedCourse");
+    @Order(3)
+    void testModifyFields() {
+        registration.setNumRegistration(2L);
+        registration.setNumWeek(15);
 
-        String result = registration.toString();
+        log.info("Modification des champs : numRegistration={}, numWeek={}",
+                registration.getNumRegistration(), registration.getNumWeek());
 
-        assertTrue(result.contains("MockedSkier"));
-        assertTrue(result.contains("MockedCourse"));
-
-        // ❌ Supprimé : on ne peut pas vérifier toString() directement sur les mocks
-        // verify(mockSkier, times(1)).toString();
-        // verify(mockCourse, times(1)).toString();
+        Assertions.assertEquals(2L, registration.getNumRegistration());
+        Assertions.assertEquals(15, registration.getNumWeek());
     }
 
-    // ✅ 3️⃣ Change les relations (setters) et vérifie que le mock est bien remplacé
+    // ✅ 4️⃣ Test de comportement avec Mockito (vérification des interactions sur les mocks)
     @Test
-    void testChangeMockRelations() {
-        Skier newMockSkier = Mockito.mock(Skier.class);
-        Course newMockCourse = Mockito.mock(Course.class);
+    @Order(4)
+    void testMockitoInteractions() {
+        when(mockSkier.toString()).thenReturn("FakeSkier");
+        when(mockCourse.toString()).thenReturn("FakeCourse");
 
-        registration.setSkier(newMockSkier);
-        registration.setCourse(newMockCourse);
+        String str = registration.toString();
 
-        assertEquals(newMockSkier, registration.getSkier());
-        assertEquals(newMockCourse, registration.getCourse());
-    }
+        log.info("Vérification du toString de Registration : {}", str);
 
-    // ✅ 4️⃣ Vérifie que l’objet reste cohérent après modifications
-    @Test
-    void testObjectConsistencyAfterUpdates() {
-        registration.setNumWeek(20);
-        registration.setNumRegistration(5L);
+        Assertions.assertTrue(str.contains("FakeSkier"));
+        Assertions.assertTrue(str.contains("FakeCourse"));
 
-        assertEquals(5L, registration.getNumRegistration());
-        assertEquals(20, registration.getNumWeek());
-        assertNotNull(registration.getSkier());
-        assertNotNull(registration.getCourse());
+        // ❌ On ne peut pas verify() toString() sur un mock final
+        // Vérification indirecte possible via getters
+        registration.setSkier(mockSkier);
+        registration.setCourse(mockCourse);
+
+        Assertions.assertEquals(mockSkier, registration.getSkier());
+        Assertions.assertEquals(mockCourse, registration.getCourse());
+
+        // Si on voulait vérifier des méthodes spécifiques de Skier ou Course, on ferait verify() ici
     }
 }
