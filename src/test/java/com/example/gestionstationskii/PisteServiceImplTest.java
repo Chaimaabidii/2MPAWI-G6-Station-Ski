@@ -18,14 +18,18 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * ✅ Test unitaire pour la classe PisteServicesImpl
+ * On utilise Mockito pour isoler le service du repository.
+ */
 @ExtendWith(MockitoExtension.class)
 public class PisteServiceImplTest {
 
     @Mock
-    private IPisteRepository pisteRepository;
+    private IPisteRepository pisteRepository; // Mock du repository
 
     @InjectMocks
-    private PisteServicesImpl pisteServices;
+    private PisteServicesImpl pisteServices;  // Service réel avec injection du mock
 
     private Piste piste1;
     private Piste piste2;
@@ -47,6 +51,7 @@ public class PisteServiceImplTest {
         piste2.setSlope(30);
     }
 
+    // 🧪 Test de l'ajout d'une piste
     @Test
     public void testAddPiste() {
         when(pisteRepository.save(piste1)).thenReturn(piste1);
@@ -58,6 +63,7 @@ public class PisteServiceImplTest {
         verify(pisteRepository, times(1)).save(piste1);
     }
 
+    // 🧪 Test de la récupération de toutes les pistes
     @Test
     public void testRetrieveAllPistes() {
         when(pisteRepository.findAll()).thenReturn(Arrays.asList(piste1, piste2));
@@ -65,9 +71,12 @@ public class PisteServiceImplTest {
         List<Piste> pistes = pisteServices.retrieveAllPistes();
 
         assertEquals(2, pistes.size());
+        assertEquals("Piste Bleue", pistes.get(0).getNamePiste());
+        assertEquals("Piste Rouge", pistes.get(1).getNamePiste());
         verify(pisteRepository, times(1)).findAll();
     }
 
+    // 🧪 Test de la récupération d'une piste existante
     @Test
     public void testRetrievePiste() {
         when(pisteRepository.findById(1L)).thenReturn(Optional.of(piste1));
@@ -79,6 +88,7 @@ public class PisteServiceImplTest {
         verify(pisteRepository, times(1)).findById(1L);
     }
 
+    // 🧪 Test de la récupération d'une piste inexistante
     @Test
     public void testRetrievePiste_NotFound() {
         when(pisteRepository.findById(3L)).thenReturn(Optional.empty());
@@ -91,6 +101,7 @@ public class PisteServiceImplTest {
         verify(pisteRepository, times(1)).findById(3L);
     }
 
+    // 🧪 Test de la suppression d'une piste
     @Test
     public void testRemovePiste() {
         doNothing().when(pisteRepository).deleteById(1L);

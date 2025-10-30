@@ -21,14 +21,14 @@ import static org.mockito.Mockito.*;
 public class PisteServiceTestMock {
 
     @Mock
-    private IPisteServices pisteService;  // mock du service
+    private IPisteServices pisteService; // Service simulé (mocké)
 
     @InjectMocks
-    private PisteServiceTestMock self;   // injecte le mock
+    private PisteServiceTestMock self; // Injection des mocks (ici symbolique)
 
+    // 🧪 1️⃣ Test de l'ajout d'une piste
     @Test
     public void testAddPiste() {
-        // Création d'une piste
         Piste piste = new Piste();
         piste.setNamePiste("Piste Rouge");
         piste.setColor(Color.RED);
@@ -37,7 +37,7 @@ public class PisteServiceTestMock {
 
         log.info("Création d'une piste : {} ({})", piste.getNamePiste(), piste.getColor());
 
-        // Piste simulée renvoyée par le service
+        // Piste simulée renvoyée par le mock
         Piste savedPiste = new Piste();
         savedPiste.setNumPiste(1L);
         savedPiste.setNamePiste("Piste Rouge");
@@ -45,26 +45,21 @@ public class PisteServiceTestMock {
         savedPiste.setLength(500);
         savedPiste.setSlope(25);
 
-        // Définir le comportement du mock
         when(pisteService.addPiste(piste)).thenReturn(savedPiste);
 
-        // Appel du service
         Piste result = pisteService.addPiste(piste);
 
-        // Vérifications
         Assertions.assertNotNull(result.getNumPiste(), "L'ID de la piste ne doit pas être nul");
         Assertions.assertEquals("Piste Rouge", result.getNamePiste());
         Assertions.assertEquals(Color.RED, result.getColor());
 
-        log.info("Test addPiste réussi : {}", result.getNamePiste());
-
-        // Vérifier que la méthode addPiste a été appelée une fois
+        log.info("✅ Test addPiste réussi : {}", result.getNamePiste());
         verify(pisteService, times(1)).addPiste(piste);
     }
 
+    // 🧪 2️⃣ Test de la récupération de toutes les pistes
     @Test
     public void testRetrieveAllPistes() {
-        // Liste de pistes simulées
         Piste piste1 = new Piste();
         piste1.setNumPiste(1L);
         piste1.setNamePiste("Piste Bleue");
@@ -79,15 +74,44 @@ public class PisteServiceTestMock {
 
         when(pisteService.retrieveAllPistes()).thenReturn(pistesSimulees);
 
-        // Appel du service
         List<Piste> result = pisteService.retrieveAllPistes();
 
         Assertions.assertEquals(2, result.size(), "Il doit y avoir 2 pistes");
         Assertions.assertEquals("Piste Bleue", result.get(0).getNamePiste());
         Assertions.assertEquals("Piste Verte", result.get(1).getNamePiste());
 
-        log.info("Test retrieveAllPistes réussi, nombre de pistes : {}", result.size());
-
+        log.info("✅ Test retrieveAllPistes réussi, nombre de pistes : {}", result.size());
         verify(pisteService, times(1)).retrieveAllPistes();
+    }
+
+    // 🧪 3️⃣ Test de la récupération d'une piste par ID
+    @Test
+    public void testRetrievePiste() {
+        Piste piste = new Piste();
+        piste.setNumPiste(1L);
+        piste.setNamePiste("Piste Noire");
+        piste.setColor(Color.BLACK);
+
+        when(pisteService.retrievePiste(1L)).thenReturn(piste);
+
+        Piste result = pisteService.retrievePiste(1L);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("Piste Noire", result.getNamePiste());
+        Assertions.assertEquals(Color.BLACK, result.getColor());
+
+        log.info("✅ Test retrievePiste réussi : {}", result.getNamePiste());
+        verify(pisteService, times(1)).retrievePiste(1L);
+    }
+
+    // 🧪 4️⃣ Test de la suppression d'une piste
+    @Test
+    public void testRemovePiste() {
+        doNothing().when(pisteService).removePiste(1L);
+
+        pisteService.removePiste(1L);
+
+        log.info("✅ Test removePiste réussi : piste supprimée avec ID 1");
+        verify(pisteService, times(1)).removePiste(1L);
     }
 }
