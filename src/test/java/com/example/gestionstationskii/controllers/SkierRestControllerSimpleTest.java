@@ -8,8 +8,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.*;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class SkierRestControllerSimpleTest {
 
@@ -31,15 +34,41 @@ class SkierRestControllerSimpleTest {
 
     @Test
     void testAddSkier() {
-        // Arrange
         when(skierServices.addSkier(any(Skier.class))).thenReturn(skier);
 
-        // Act
         Skier result = skierRestController.addSkier(skier);
 
-        // Assert
         assertNotNull(result);
         assertEquals("Mayssa", result.getFirstName());
         verify(skierServices, times(1)).addSkier(any(Skier.class));
+    }
+
+    @Test
+    void testGetAllSkiers() {
+        when(skierServices.retrieveAllSkiers()).thenReturn(Arrays.asList(skier));
+
+        List<Skier> result = skierRestController.getAllSkiers();
+
+        assertEquals(1, result.size());
+        assertEquals("Mayssa", result.get(0).getFirstName());
+        verify(skierServices, times(1)).retrieveAllSkiers();
+    }
+
+    @Test
+    void testGetById() {
+        when(skierServices.retrieveSkier(1L)).thenReturn(skier);
+
+        Skier result = skierRestController.getById(1L);
+
+        assertNotNull(result);
+        assertEquals(1L, result.getNumSkier().longValue());
+        verify(skierServices, times(1)).retrieveSkier(1L);
+    }
+
+    @Test
+    void testDeleteById() {
+        skierRestController.deleteById(1L);
+
+        verify(skierServices, times(1)).removeSkier(1L);
     }
 }

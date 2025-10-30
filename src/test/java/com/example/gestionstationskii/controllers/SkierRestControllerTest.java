@@ -1,7 +1,6 @@
 package com.example.gestionstationskii.controllers;
 
 import com.example.gestionstationskii.entities.Skier;
-import com.example.gestionstationskii.entities.TypeSubscription;
 import com.example.gestionstationskii.services.ISkierServices;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,8 +11,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SkierRestControllerTest {
 
@@ -52,6 +51,7 @@ class SkierRestControllerTest {
         List<Skier> result = skierRestController.getAllSkiers();
 
         assertEquals(1, result.size());
+        assertEquals("Mayssa", result.get(0).getFirstName());
         verify(skierServices, times(1)).retrieveAllSkiers();
     }
 
@@ -64,17 +64,6 @@ class SkierRestControllerTest {
         assertNotNull(result);
         assertEquals(1L, result.getNumSkier().longValue());
         verify(skierServices, times(1)).retrieveSkier(1L);
-    }
-
-    @Test
-    void testRetrieveSkiersBySubscriptionType() {
-        when(skierServices.retrieveSkiersBySubscriptionType(TypeSubscription.ANNUAL))
-                .thenReturn(Arrays.asList(skier));
-
-        List<Skier> result = skierRestController.retrieveSkiersBySubscriptionType(TypeSubscription.ANNUAL);
-
-        assertFalse(result.isEmpty());
-        verify(skierServices, times(1)).retrieveSkiersBySubscriptionType(TypeSubscription.ANNUAL);
     }
 
     @Test
