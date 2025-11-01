@@ -18,13 +18,13 @@ import static org.mockito.Mockito.*;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-public class PisteServiceTestMock {
+public class PisteServiceTestMockTest {
 
     @Mock
     private IPisteServices pisteService; // Service simulé (mocké)
 
     @InjectMocks
-    private PisteServiceTestMock self; // Injection des mocks (ici symbolique)
+    private PisteServiceTestMockTest self; // Injection des mocks (ici symbolique)
 
     // 🧪 1️⃣ Test de l'ajout d'une piste
     @Test
