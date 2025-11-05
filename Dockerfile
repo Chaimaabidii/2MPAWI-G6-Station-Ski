@@ -1,5 +1,5 @@
 # Utiliser une image officielle Java 8
-FROM openjdk:8-jdk-bullseye
+FROM eclipse-temurin:17-jdk
 
 # Exposer le port de l’application Spring Boot
 EXPOSE 8080
