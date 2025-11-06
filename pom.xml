@@ -11,6 +11,10 @@
 <groupId>com.example</groupId>
 <artifactId>gestion-station-skii</artifactId>
 <version>0.0.5-RELEASE</version>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26168e20dffe974356752e430806218185bca40d
 <name>gestion-station-skii</name>
 <description>gestion-station-skii</description>
 <properties>
