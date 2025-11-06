@@ -1,12 +1,13 @@
-# Utiliser une image officielle Java 8
+# Étape 1 : Build du projet avec Maven
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Étape 2 : Image finale Java
 FROM eclipse-temurin:17-jdk
-
-# Exposer le port de l’application Spring Boot
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Copier le fichier JAR généré dans le conteneur
-COPY target/gestion-station-skii-0.0.2-SNAPSHOT.jar app.jar
-
-
-# Démarrer l’application
 ENTRYPOINT ["java", "-jar", "app.jar"]
