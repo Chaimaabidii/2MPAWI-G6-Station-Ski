@@ -1,28 +1,11 @@
-# Étape 1 : Build du projet avec Maven
-FROM maven:3.9.6-eclipse-temurin-17 AS build
-WORKDIR /app
+# Utiliser une image légère avec Java 8
+FROM openjdk:8-jdk-alpine
 
-# Copier le pom.xml d'abord pour le cache Docker
-COPY pom.xml .
+# Exposer le port de l’application Spring Boot
+EXPOSE 8089
 
-# Télécharger les dépendances Maven
-RUN mvn dependency:go-offline -B
-
-# Copier le code source
-COPY src ./src
-
-# Construire le projet (ignorer les tests)
-RUN mvn clean package -DskipTests
-
-# Étape 2 : Image finale légère
-FROM eclipse-temurin:17-jdk
-WORKDIR /app
-
-# Copier le jar généré depuis l'étape précédente
-COPY --from=build /app/target/*.jar app.jar
-
-# Exposer le port 8080 (Spring Boot par défaut)
-EXPOSE 8080
+# Copier le fichier JAR généré dans le conteneur
+ADD target/gestion-station-skii-0.0.2-SNAPSHOT.jar app.jar
 
 # Démarrer l’application
-ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
