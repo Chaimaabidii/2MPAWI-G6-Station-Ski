@@ -17,7 +17,7 @@
     <!-- PROJECT INFO -->
     <groupId>com.example</groupId>
     <artifactId>gestion-station-skii</artifactId>
-    <version>0.0.8-RELEASE</version>
+    <version>0.0.9-RELEASE</version>
     <name>gestion-station-skii</name>
     <description>Projet de gestion des stations de ski</description>
 
