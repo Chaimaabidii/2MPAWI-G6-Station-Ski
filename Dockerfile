@@ -1,5 +1,6 @@
 # Utiliser une image légère avec Java 8
-FROM openjdk:8-jdk-slim
+FROM eclipse-temurin:8-jdk-alpine
+
 
 # Exposer le port de l’application Spring Boot
 EXPOSE 8089
