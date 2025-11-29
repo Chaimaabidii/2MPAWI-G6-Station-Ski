@@ -17,7 +17,7 @@
     <!-- PROJECT INFO -->
     <groupId>com.example</groupId>
     <artifactId>gestion-station-skii</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>0.0.3-RELEASE</version>
     <name>gestion-station-skii</name>
     <description>Projet de gestion des stations de ski</description>
 
@@ -145,7 +145,7 @@
         <snapshotRepository>
             <id>nexus-snapshots</id>
             <name>Nexus Snapshot Repository</name>
-            <url>http://NEXUS_HOST:8081/repository/maven-snapshots/</url>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
