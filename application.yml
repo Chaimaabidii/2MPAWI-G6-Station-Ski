@@ -1,0 +1,19 @@
+server:
+  port: 8087             # Port sur lequel ton application Station Ski écoute
+  address: 0.0.0.0        # Écoute sur toutes les interfaces réseau
+
+spring:
+  application:
+    name: station-ski-app  # Nom de l'application
+
+# Configuration de la base de données (exemple MySQL)
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/skidb  # Remplace par le nom de ta base
+    username: root                       # Remplace par ton utilisateur MySQL
+    password:                        # Remplace par ton mot de passe
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# Autres configurations nécessaires
+# spring.jpa.hibernate.ddl-auto: update
+# spring.jpa.show-sql: true
