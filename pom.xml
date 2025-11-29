@@ -11,13 +11,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <!-- PROJECT INFO -->
     <groupId>com.example</groupId>
     <artifactId>gestion-station-skii</artifactId>
-  <version>1.1.2-RELEASE</version>
+    <version>1.1.2-SNAPSHOT</version>
     <name>gestion-station-skii</name>
     <description>Projet de gestion des stations de ski</description>
 
@@ -32,7 +32,6 @@
 
     <!-- DÉPENDANCES -->
     <dependencies>
-
         <!-- SPRING BOOT -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,7 +58,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- SPRINGDOC OPENAPI (Swagger UI) -->
+        <!-- SPRINGDOC OPENAPI -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
@@ -79,34 +78,29 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <!-- CONFIGURATION DU BUILD -->
     <build>
         <plugins>
-
             <!-- SPRING BOOT -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -138,7 +132,6 @@
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>4.0.0.4121</version>
             </plugin>
-
         </plugins>
     </build>
 
@@ -147,12 +140,12 @@
         <repository>
             <id>deploymentRepo</id>
             <name>Nexus Releases Repository</name>
-            <url>http://localhost:8081/repository/maven-releases/</url>
+            <url>http://NEXUS_HOST:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
             <name>Nexus Snapshot Repository</name>
-            <url>http://localhost:8081/repository/maven-snapshots/</url>
+            <url>http://NEXUS_HOST:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
