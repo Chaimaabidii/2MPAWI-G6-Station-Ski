@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8d8fd67d6590ea428713679323a6a77baed084dad6868718c911059e92e3ce3e
-size 499
+output "cluster_endpoint" {
+  description = "L'endpoint du cluster EKS"
+  value       = aws_eks_cluster.my_cluster.endpoint  # Utilisation du nom correct du cluster
+}
+
+output "cluster_name" {
+  description = "Le nom du cluster EKS"
+  value       = aws_eks_cluster.my_cluster.name  # Utilisation du nom correct du cluster
+}
+
+output "cluster_role_arn" {
+  description = "L'ARN du rôle IAM du cluster EKS"
+  value       = aws_eks_cluster.my_cluster.role_arn  # Utilisation du nom correct du cluster
+}
