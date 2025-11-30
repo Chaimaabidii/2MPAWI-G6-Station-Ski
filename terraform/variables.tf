@@ -14,9 +14,9 @@ variable "subnet_ids" {
   description = "IDs des sous-réseaux EKS"
   type        = list(string)
   default     = [
-    "subnet-075feac228c3d0b96",  # us-east-1a
-    "subnet-0971a956bc4913751",  # us-east-1b
-    "subnet-04af31033f95833b9"   # us-east-1c
+    "subnet-0d6e3e6e1b76c3484",  # us-east-1a
+    "subnet-0a085f17f77568373",  # us-east-1b
+    "subnet-0679e41751e67f56a"   # us-east-1c
   ]
 }
 
