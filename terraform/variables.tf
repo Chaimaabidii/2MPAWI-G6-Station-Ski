@@ -29,7 +29,7 @@ variable "role_arn" {
 variable "vpc_id" {
   description = "ID du VPC"
   type        = string
-  default     = "vpc-01eccc8618809547b"
+  default     = "vpc-08161a2ce2c9925c1"
 }
 
 variable "vpc_cidr" {
