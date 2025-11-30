@@ -1,3 +1,39 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b54b5cf8ab8cde2d7fbf9273e6b0aac91799f84c2e032efd8491db01639282c6
-size 872
+variable "aws_region" {
+  description = "La région AWS"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "cluster_name" {
+  description = "Nom du cluster EKS"
+  type        = string
+  default     = "mykubernetes"
+}
+
+variable "subnet_ids" {
+  description = "IDs des sous-réseaux EKS"
+  type        = list(string)
+  default     = [
+    "subnet-075feac228c3d0b96",  # us-east-1a
+    "subnet-0971a956bc4913751",  # us-east-1b
+    "subnet-04af31033f95833b9"   # us-east-1c
+  ]
+}
+
+variable "role_arn" {
+  description = "ARN du rôle IAM pour EKS"
+  type        = string
+  default     = "arn:aws:iam::917654454800:role/LabRole"
+}
+
+variable "vpc_id" {
+  description = "ID du VPC"
+  type        = string
+  default     = "vpc-0fbaf3350fd25cf98"
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
