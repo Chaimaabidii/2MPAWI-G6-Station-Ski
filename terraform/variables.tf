@@ -1,16 +1,19 @@
 variable "aws_region" {
-  type    = string
-  default = "us-east-1"
+  description = "Région AWS"
+  type        = string
+  default     = "us-east-1"
 }
 
 variable "cluster_name" {
-  type    = string
-  default = "mykubernetes"
+  description = "Nom du cluster EKS"
+  type        = string
+  default     = "mykubernetes"
 }
 
 variable "subnet_ids" {
-  type = list(string)
-  default = [
+  description = "Subnets EKS (DOIVENT être dans le même VPC)"
+  type        = list(string)
+  default     = [
     "subnet-0679e41751e67f56a",
     "subnet-03f7b4862fc55b6d4",
     "subnet-0567d2939279428b3"
@@ -18,20 +21,24 @@ variable "subnet_ids" {
 }
 
 variable "role_arn" {
-  type    = string
-  default = "arn:aws:iam::917654454800:role/LabRole"
+  description = "Rôle IAM EKS"
+  type        = string
+  default     = "arn:aws:iam::917654454800:role/LabRole"
 }
 
 variable "vpc_id" {
-  type    = string
-  default = "vpc-0fbaf3350fd25cf981"
+  description = "VPC du cluster EKS"
+  type        = string
+  default     = "vpc-0fbaf3350fd25cf98"   # ✅ CORRIGÉ
 }
 
-# ✅ SG EXISTANTS
+# ✅ SECURITY GROUPS EXISTANTS (même VPC que les subnets)
 variable "eks_cluster_sg_id" {
-  type = string
+  description = "Security Group du cluster EKS"
+  type        = string
 }
 
 variable "eks_worker_sg_id" {
-  type = string
+  description = "Security Group des workers EKS"
+  type        = string
 }
