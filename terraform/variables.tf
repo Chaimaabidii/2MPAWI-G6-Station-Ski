@@ -37,3 +37,13 @@ variable "vpc_cidr" {
   type        = string
   default     = "10.0.0.0/16"
 }
+variable "eks_cluster_sg_id" {
+  description = "Security Group existant du cluster EKS"
+  type        = string
+}
+
+variable "eks_worker_sg_id" {
+  description = "Security Group existant des workers EKS"
+  type        = string
+}
+
