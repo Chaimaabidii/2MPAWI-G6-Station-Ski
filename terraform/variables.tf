@@ -14,9 +14,9 @@ variable "subnet_ids" {
   description = "IDs des sous-réseaux EKS"
   type        = list(string)
   default     = [
-    "subnet-022338cd7540b4755",  # us-east-1a
-    "subnet-03cbd72fbbfc663f1",  # us-east-1b
-    "subnet-0bb0d896bd2043f48"   # us-east-1c
+    "subnet-022338cd7540b4755",
+    "subnet-03cbd72fbbfc663f1",
+    "subnet-0bb0d896bd2043f48"
   ]
 }
 
@@ -37,6 +37,7 @@ variable "vpc_cidr" {
   type        = string
   default     = "10.0.0.0/16"
 }
+
 variable "eks_cluster_sg_id" {
   description = "Security Group existant du cluster EKS"
   type        = string
@@ -46,4 +47,3 @@ variable "eks_worker_sg_id" {
   description = "Security Group existant des workers EKS"
   type        = string
 }
-
