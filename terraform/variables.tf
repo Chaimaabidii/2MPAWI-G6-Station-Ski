@@ -14,9 +14,9 @@ variable "subnet_ids" {
   description = "IDs des sous-réseaux EKS"
   type        = list(string)
   default     = [
-    "subnet-0cd619f45e4754614",  # us-east-1a
-    "subnet-08806cd912ea9d7fd",  # us-east-1b
-    "subnet-04d7f2e10287f6830"   # us-east-1c
+    "subnet-05b52a01889df5b88",  # us-east-1a
+    "subnet-078097c663bd549b0",  # us-east-1b
+    "subnet-06398b1e0d6cfb7c1"   # us-east-1c
   ]
 }
 
@@ -29,7 +29,7 @@ variable "role_arn" {
 variable "vpc_id" {
   description = "ID du VPC"
   type        = string
-  default     = "vpc-078f190a4d0154205"
+  default     = "vpc-071a06bd6415b1a4b"
 }
 
 variable "vpc_cidr" {
